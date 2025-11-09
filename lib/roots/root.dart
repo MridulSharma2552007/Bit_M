@@ -1,3 +1,5 @@
+import 'package:bit_m/WIDGETS/navbar.dart';
+import 'package:bit_m/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class Root extends StatelessWidget {
@@ -5,6 +7,17 @@ class Root extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [AppColors.primaryBlue, AppColors.primaryBgColor],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Navbar(),
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bit_m/roots/root.dart';
 import 'package:flutter/material.dart';
+import 'package:typewritertext/typewritertext.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -32,13 +33,35 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: _controller.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-            : Center(child: CircularProgressIndicator()),
+      body: Stack(
+        children: [
+          Center(
+            child: _controller.value.isInitialized
+                ? AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  )
+                : Center(child: CircularProgressIndicator()),
+          ),
+          Positioned(
+            bottom: 100,
+            left: 0,
+            right: 0,
+
+            child: Center(
+              child: TypeWriter.text(
+                'Bit_M',
+                style: TextStyle(
+                  color: Colors.greenAccent,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                ),
+                duration: Duration(milliseconds: 500),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
