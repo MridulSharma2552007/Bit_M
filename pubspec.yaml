@@ -32,8 +32,11 @@ dependencies:
   curved_navigation_bar: ^1.0.6
   flutter:
     sdk: flutter
+  http: ^1.5.0
   typewritertext: ^3.0.9
   video_player: ^2.10.0
+  youtube: ^2.0.0
+  youtube_explode_dart: ^3.0.3
 
 dev_dependencies:
   flutter_lints: ^5.0.0
