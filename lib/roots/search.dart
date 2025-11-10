@@ -39,63 +39,65 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF000000), Color(0xFF203A43)],
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF000000), Color(0xFF203A43)],
+          ),
         ),
-      ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
-                  ),
-                  prefixIcon: Icon(Icons.search, color: Colors.white),
-                  hintStyle: TextStyle(color: Colors.white70),
-                ),
-                style: TextStyle(color: Colors.white),
-                onSubmitted: (value) => _performingSearch(),
-              ),
-            ),
-            Expanded(
-              child: _loading
-                  ? Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      itemCount: _searchResults.length,
-                      itemBuilder: (context, index) {
-                        final video = _searchResults[index];
-                        return GestureDetector(
-                          onTap: () {
-                            _playerService.play(video['videoId']);
-                          },
-                          child: ListTile(
-                            leading: Image.network(video['thumbnailUrl']),
-                            title: Text(
-                              video['title'],
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            subtitle: Text(
-                              video['channelTitle'],
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          ),
-                        );
-                      },
+        child: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Search...',
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide.none,
                     ),
-            ),
-          ],
+                    prefixIcon: Icon(Icons.search, color: Colors.white),
+                    hintStyle: TextStyle(color: Colors.white70),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                  onSubmitted: (value) => _performingSearch(),
+                ),
+              ),
+              Expanded(
+                child: _loading
+                    ? Center(child: CircularProgressIndicator())
+                    : ListView.builder(
+                        itemCount: _searchResults.length,
+                        itemBuilder: (context, index) {
+                          final video = _searchResults[index];
+                          return GestureDetector(
+                            onTap: () {
+                              _playerService.play(video['videoId']);
+                            },
+                            child: ListTile(
+                              leading: Image.network(video['thumbnailUrl']),
+                              title: Text(
+                                video['title'],
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              subtitle: Text(
+                                video['channelTitle'],
+                                style: TextStyle(color: Colors.white70),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );

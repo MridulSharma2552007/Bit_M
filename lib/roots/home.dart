@@ -1,3 +1,4 @@
+import 'package:bit_m/roots/search.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -5,12 +6,87 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF000000), Color(0xFF203A43)],
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.deepPurple, Color(0xFF000000)],
+          ),
+        ),
+        child: Column(
+          children: [
+            SizedBox(height: 70),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TopFullTray(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TopFullTray extends StatelessWidget {
+  const TopFullTray({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        UpperTray(imgPath: 'lib/assets/Images/user.png', icon: null),
+        Spacer(),
+        UpperTray(
+          imgPath: null,
+          icon: Icons.search,
+          ontap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Search()),
+          ),
+        ),
+        SizedBox(width: 20),
+        UpperTray(imgPath: null, icon: Icons.bubble_chart),
+      ],
+    );
+  }
+}
+
+class UpperTray extends StatefulWidget {
+  final String? imgPath;
+  final IconData? icon;
+  final VoidCallback? ontap;
+  const UpperTray({
+    super.key,
+    required this.imgPath,
+    this.ontap,
+    required this.icon,
+  });
+
+  @override
+  State<UpperTray> createState() => _UpperTrayState();
+}
+
+class _UpperTrayState extends State<UpperTray> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: widget.ontap,
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          color: Colors.white.withValues(alpha: 0.5),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: widget.imgPath != null
+              ? Image.asset(widget.imgPath!)
+              : Icon(widget.icon, color: Colors.white.withValues(alpha: 0.5)),
         ),
       ),
     );
