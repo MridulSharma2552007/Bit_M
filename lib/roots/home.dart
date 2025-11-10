@@ -15,31 +15,33 @@ class Home extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.deepPurple, Color(0xFF000000)],
+            colors: [Colors.black, Color.fromARGB(255, 18, 18, 18)],
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
 
-          children: [
-            SizedBox(height: 70),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TopFullTray(),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Hey There 👋',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.secondaryBgColor,
-                  fontSize: 25,
+            children: [
+              SizedBox(height: 70),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: TopFullTray(),
+              ),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'Hey There 👋',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.withValues(alpha: 0.7),
+                    fontSize: 25,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -94,8 +96,12 @@ class _UpperTrayState extends State<UpperTray> {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
+          border: Border(
+            left: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+            right: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+          ),
           borderRadius: BorderRadius.circular(100),
-          color: Colors.white.withValues(alpha: 0.5),
+          color: Colors.white.withValues(alpha: 0.2),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
