@@ -1,16 +1,33 @@
-# bit_m
+# 🎵 BitM — Open Source YouTube Music App
 
-A new Flutter project.
+**BitM** is a simple and open-source Flutter music app that lets you **search, explore, and play songs directly from YouTube**.  
+It combines the power of the **YouTube Data API** for fetching metadata and **youtube_explode_dart** for smooth, high-quality audio streaming.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ What It Does
+- 🔍 Search for songs, artists, and albums on YouTube  
+- 🎧 Stream high-quality audio directly (no ads, no downloads)  
+- 🖼️ Clean, minimal UI with a modern gradient theme  
+- 🪄 Fast and lightweight — made with pure Flutter  
+- 💬 100% open for collaboration and improvements  
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🧩 Built With
+- **Flutter** — for cross-platform UI  
+- **youtube_explode_dart** — to extract and stream audio  
+- **YouTube Data API v3** — for video and music metadata  
+- **just_audio** — for stable playback and player controls  
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🤝 Free to Work Together
+This project is fully **open-source**.  
+If you want to help improve the UI, add features, or fix something — jump in! 🚀  
+Everyone’s welcome to contribute, share ideas, and build together.  
+
+---
+
+> Made with ❤️ by **Mridul Sharma**  
+> “Keep it simple, make it beautiful.” 🌙
