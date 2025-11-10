@@ -68,8 +68,10 @@ class _HomeState extends State<Home> {
                             height: 30,
                             decoration: BoxDecoration(
                               color: selectedIndex == index
-                                  ? Colors.deepPurpleAccent.withOpacity(0.8)
-                                  : Colors.white.withOpacity(0.1),
+                                  ? Colors.deepPurpleAccent.withValues(
+                                      alpha: 0.8,
+                                    )
+                                  : Colors.white.withValues(alpha: 0.1),
                               borderRadius: selectedIndex == index
                                   ? BorderRadius.circular(10)
                                   : BorderRadius.circular(100),

@@ -58,7 +58,7 @@ class _SearchState extends State<Search> {
                   decoration: InputDecoration(
                     hintText: 'Search...',
                     filled: true,
-                    fillColor: Colors.white.withOpacity(0.1),
+                    fillColor: Colors.white.withValues(alpha: 0.1),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                       borderSide: BorderSide.none,
