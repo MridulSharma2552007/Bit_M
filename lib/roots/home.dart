@@ -1,3 +1,4 @@
+import 'package:bit_m/colors/app_colors.dart';
 import 'package:bit_m/roots/search.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +19,25 @@ class Home extends StatelessWidget {
           ),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             SizedBox(height: 70),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TopFullTray(),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Hey There 👋',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.secondaryBgColor,
+                  fontSize: 25,
+                ),
+              ),
             ),
           ],
         ),
