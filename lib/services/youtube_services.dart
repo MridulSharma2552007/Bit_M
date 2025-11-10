@@ -26,4 +26,5 @@ class YouTubeService {
       throw Exception('Failed to load video details');
     }
   }
+  
 }
