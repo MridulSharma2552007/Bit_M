@@ -1,4 +1,4 @@
-import 'package:bit_m/services/player_Services.dart';
+import 'package:bit_m/services/player_services.dart';
 import 'package:bit_m/services/youtube_services.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +12,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   bool _loading = false;
   final PlayerService _playerService = PlayerService();
+
   final TextEditingController _searchController = TextEditingController();
   final YouTubeService _youTubeService = YouTubeService();
   List<Map<String, dynamic>> _searchResults = [];
@@ -77,7 +78,6 @@ class _SearchState extends State<Search> {
                         final video = _searchResults[index];
                         return GestureDetector(
                           onTap: () {
-                            print("🎬 Playing videoId: ${video['videoId']}");
                             _playerService.play(video['videoId']);
                           },
                           child: ListTile(
