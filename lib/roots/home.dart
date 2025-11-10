@@ -1,10 +1,15 @@
-import 'package:bit_m/colors/app_colors.dart';
 import 'package:bit_m/roots/search.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final List category = ['ALL', 'Trending', 'Rock', 'Looser Core'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +42,38 @@ class Home extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.grey.withValues(alpha: 0.7),
                     fontSize: 25,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: SizedBox(
+                  height: 40,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: category.length,
+                    itemBuilder: (context, index) {
+                      final allcat = category[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Container(
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
+                              child: Text(allcat),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
