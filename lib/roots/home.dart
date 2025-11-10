@@ -9,6 +9,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int selectedIndex = 0;
   final List category = ['ALL', 'Trending', 'Rock', 'Looser Core'];
   @override
   Widget build(BuildContext context) {
@@ -57,18 +58,39 @@ class _HomeState extends State<Home> {
                       final allcat = category[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+                          },
+                          child: Container(
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: selectedIndex == index
+                                  ? Colors.deepPurpleAccent.withOpacity(0.8)
+                                  : Colors.white.withOpacity(0.1),
+                              borderRadius: selectedIndex == index
+                                  ? BorderRadius.circular(10)
+                                  : BorderRadius.circular(100),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                ),
+                                child: Text(
+                                  allcat,
+                                  style: TextStyle(
+                                    color: selectedIndex == index
+                                        ? Colors.black
+                                        : Colors.grey.withValues(alpha: 0.5),
+                                    fontWeight: selectedIndex == index
+                                        ? FontWeight.bold
+                                        : FontWeight.w100,
+                                  ),
+                                ),
                               ),
-                              child: Text(allcat),
                             ),
                           ),
                         ),
