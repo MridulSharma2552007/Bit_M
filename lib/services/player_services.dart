@@ -1,3 +1,4 @@
+import 'package:bit_m/keys.dart';
 import 'package:just_audio/just_audio.dart';
 
 class PlayerService {
@@ -5,8 +6,7 @@ class PlayerService {
 
   Future<void> play(String videoId) async {
     try {
-      // your Node server address (replace with your PC’s IP)
-      final url = 'http://10.181.154.110:3000/stream?id=$videoId';
+      final url = '${Keys.NodeServer}$videoId';
 
       print('🎧 Playing from: $url');
 

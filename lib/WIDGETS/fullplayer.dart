@@ -9,7 +9,7 @@ class Fullplayer extends StatefulWidget {
 
 class _FullplayerState extends State<Fullplayer> {
   double _currentSliderValue = 0;
-  double _songDuration = 200;
+  final double _songDuration = 200;
   @override
   Widget build(BuildContext context) {
     return Container(
