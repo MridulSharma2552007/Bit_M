@@ -2,16 +2,26 @@ import 'package:bit_m/WIDGETS/fullplayer.dart';
 import 'package:bit_m/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class BottomMusicTile extends StatefulWidget {
-  const BottomMusicTile({super.key});
+class BottomMusicTile extends StatelessWidget {
+  final String? title;
+  final String? channel;
+  final String? thumbnail;
+  final String? videoId;
+  final VoidCallback? onPlay;
+  const BottomMusicTile({
+    super.key,
+    this.title,
+    this.channel,
+    this.thumbnail,
+    this.videoId,
+    this.onPlay,
+  });
 
-  @override
-  State<BottomMusicTile> createState() => _BottomMusicTileState();
-}
-
-class _BottomMusicTileState extends State<BottomMusicTile> {
   @override
   Widget build(BuildContext context) {
+    if (title == null || videoId == null) {
+      return SizedBox.shrink();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
@@ -29,10 +39,16 @@ class _BottomMusicTileState extends State<BottomMusicTile> {
               width: 50,
               margin: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color: Colors.grey,
                 borderRadius: BorderRadius.circular(10),
+                image: thumbnail != null
+                    ? DecorationImage(
+                        image: NetworkImage(thumbnail!),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
               ),
             ),
+
             const SizedBox(width: 10),
             Expanded(
               child: GestureDetector(
@@ -45,7 +61,7 @@ class _BottomMusicTileState extends State<BottomMusicTile> {
                   );
                 },
                 child: Text(
-                  'Song Title - Artist Name',
+                  '$title - $channel',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -57,7 +73,7 @@ class _BottomMusicTileState extends State<BottomMusicTile> {
             ),
             IconButton(
               icon: const Icon(Icons.play_arrow, color: Colors.white),
-              onPressed: () {},
+              onPressed: onPlay,
             ),
             IconButton(
               icon: const Icon(Icons.skip_next, color: Colors.white),

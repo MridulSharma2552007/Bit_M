@@ -3,7 +3,8 @@ import 'package:bit_m/services/youtube_services.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatefulWidget {
-  const Search({super.key});
+  final Function(Map<String, dynamic>) onSongSelected;
+  const Search({super.key, required this.onSongSelected});
 
   @override
   State<Search> createState() => _SearchState();
@@ -79,7 +80,7 @@ class _SearchState extends State<Search> {
                           final video = _searchResults[index];
                           return GestureDetector(
                             onTap: () {
-                              _playerService.play(video['videoId']);
+                              widget.onSongSelected(video);
                             },
                             child: ListTile(
                               leading: Image.network(video['thumbnailUrl']),

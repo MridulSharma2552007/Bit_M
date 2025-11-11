@@ -132,7 +132,10 @@ class TopFullTray extends StatelessWidget {
           icon: Icons.search,
           ontap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Search()),
+            MaterialPageRoute(
+              builder: (context) =>
+                  Search(onSongSelected: (Map<String, dynamic> p1) {}),
+            ),
           ),
           isSearch: true,
         ),
