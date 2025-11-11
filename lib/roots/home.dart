@@ -18,10 +18,10 @@ class _HomeState extends State<Home> {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.black, Color.fromARGB(255, 18, 18, 18)],
+          gradient: RadialGradient(
+            colors: [Color(0xFF000000), Color(0xFF203A43)],
+            center: Alignment.topCenter,
+            radius: 1.5,
           ),
         ),
         child: SingleChildScrollView(
@@ -67,9 +67,14 @@ class _HomeState extends State<Home> {
                           child: Container(
                             height: 30,
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                color: selectedIndex == index
+                                    ? Colors.deepPurpleAccent
+                                    : Colors.grey.withValues(alpha: 0.5),
+                              ),
                               color: selectedIndex == index
                                   ? Colors.deepPurpleAccent.withValues(
-                                      alpha: 0.8,
+                                      alpha: 0.2,
                                     )
                                   : Colors.white.withValues(alpha: 0.1),
                               borderRadius: selectedIndex == index
@@ -85,11 +90,11 @@ class _HomeState extends State<Home> {
                                   allcat,
                                   style: TextStyle(
                                     color: selectedIndex == index
-                                        ? Colors.black
+                                        ? Colors.white
                                         : Colors.grey.withValues(alpha: 0.5),
                                     fontWeight: selectedIndex == index
                                         ? FontWeight.bold
-                                        : FontWeight.w100,
+                                        : FontWeight.normal,
                                   ),
                                 ),
                               ),
@@ -116,7 +121,11 @@ class TopFullTray extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        UpperTray(imgPath: 'lib/assets/Images/user.png', icon: null),
+        UpperTray(
+          imgPath: 'lib/assets/Images/user.png',
+          icon: null,
+          isSearch: false,
+        ),
         Spacer(),
         UpperTray(
           imgPath: null,
@@ -125,9 +134,10 @@ class TopFullTray extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => Search()),
           ),
+          isSearch: true,
         ),
         SizedBox(width: 20),
-        UpperTray(imgPath: null, icon: Icons.bubble_chart),
+        UpperTray(imgPath: null, icon: Icons.bubble_chart, isSearch: false),
       ],
     );
   }
@@ -137,11 +147,13 @@ class UpperTray extends StatefulWidget {
   final String? imgPath;
   final IconData? icon;
   final VoidCallback? ontap;
+  final bool isSearch;
   const UpperTray({
     super.key,
     required this.imgPath,
     this.ontap,
     required this.icon,
+    required this.isSearch,
   });
 
   @override
@@ -157,12 +169,16 @@ class _UpperTrayState extends State<UpperTray> {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
-          border: Border(
-            left: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
-            right: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
-          ),
+          border: widget.isSearch
+              ? Border.all(
+                  color: Colors.deepPurpleAccent.withValues(alpha: 0.6),
+                  width: 2,
+                )
+              : Border.all(color: Colors.transparent),
           borderRadius: BorderRadius.circular(100),
-          color: Colors.white.withValues(alpha: 0.2),
+          color: widget.isSearch
+              ? Colors.deepPurpleAccent.withValues(alpha: 0.2)
+              : Colors.white.withValues(alpha: 0.2),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
