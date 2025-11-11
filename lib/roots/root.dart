@@ -20,7 +20,6 @@ class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: Stack(
         children: [
           pages[currentindex],
