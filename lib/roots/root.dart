@@ -1,3 +1,4 @@
+import 'package:bit_m/WIDGETS/bottom_music_tile.dart';
 import 'package:bit_m/WIDGETS/navbar.dart';
 import 'package:bit_m/roots/home.dart';
 import 'package:bit_m/roots/playlist.dart';
@@ -21,8 +22,9 @@ class _RootState extends State<Root> {
       body: Stack(
         children: [
           pages[currentindex],
+          Positioned(bottom: 80, left: 0, right: 0, child: BottomMusicTile()),
           Positioned(
-            bottom: 30,
+            bottom: 20,
             left: 0,
             right: 0,
             child: Navbar(
