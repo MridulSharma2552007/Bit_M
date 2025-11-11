@@ -14,11 +14,13 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> {
+  bool isPlaying = false;
   int currentindex = 0;
   final List<Widget> pages = [Home(), Search(), Playlist(), Settings()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    
       body: Stack(
         children: [
           pages[currentindex],

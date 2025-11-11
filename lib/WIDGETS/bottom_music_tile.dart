@@ -1,9 +1,14 @@
 import 'package:bit_m/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class BottomMusicTile extends StatelessWidget {
+class BottomMusicTile extends StatefulWidget {
   const BottomMusicTile({super.key});
 
+  @override
+  State<BottomMusicTile> createState() => _BottomMusicTileState();
+}
+
+class _BottomMusicTileState extends State<BottomMusicTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
