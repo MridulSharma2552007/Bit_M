@@ -29,7 +29,7 @@ class BottomMusicTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
-        height: 70,
+        height: 71,
         width: double.infinity,
 
         decoration: BoxDecoration(
