@@ -55,6 +55,7 @@ class _RootState extends State<Root> {
               channel: _currentSong?['channelTitle'],
               thumbnail: _currentSong?['thumbnailUrl'],
               videoId: _currentSong?['videoId'],
+              duration: _currentSong?['duration'],
               onPlay: () {
                 setState(() {
                   isPlaying = !isPlaying;

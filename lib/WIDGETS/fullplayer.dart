@@ -4,11 +4,14 @@ class Fullplayer extends StatefulWidget {
   final String title;
   final String artist;
   final String thumbnailUrl;
+  final String duration;
+
   const Fullplayer({
     super.key,
     required this.title,
     required this.artist,
     required this.thumbnailUrl,
+    required this.duration,
   });
 
   @override
@@ -17,7 +20,27 @@ class Fullplayer extends StatefulWidget {
 
 class _FullplayerState extends State<Fullplayer> {
   double _currentSliderValue = 0;
-  final double _songDuration = 200;
+  late double _songDuration;
+
+  @override
+  void initState() {
+    super.initState();
+    _songDuration = durationToSeconds(widget.duration).toDouble();
+  }
+
+  int durationToSeconds(String duration) {
+    final parts = duration.split(":");
+    final minutes = int.parse(parts[0]);
+    final seconds = int.parse(parts[1]);
+    return minutes * 60 + seconds;
+  }
+
+  String formatSeconds(double sec) {
+    final minutes = (sec ~/ 60).toString().padLeft(2, '0');
+    final seconds = (sec % 60).toInt().toString().padLeft(2, '0');
+    return "$minutes:$seconds";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,47 +51,64 @@ class _FullplayerState extends State<Fullplayer> {
       ),
       child: Column(
         children: [
-          SizedBox(height: 30),
+          const SizedBox(height: 25),
+
+          /// --- ARTWORK ---
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(18),
               child: Image.network(
                 widget.thumbnailUrl,
-                height: 300,
+                height: 310,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          SizedBox(height: 100),
+
+          const SizedBox(height: 40),
+
+          /// --- SONG TITLE ---
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[800],
-                borderRadius: BorderRadius.circular(10),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Text(
+              widget.title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
               ),
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      widget.title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+            ),
+          ),
+
+          const SizedBox(height: 8),
+
+          /// --- ARTIST ---
+          Text(
+            widget.artist,
+            style: const TextStyle(color: Colors.white70, fontSize: 17),
+          ),
+
+          const SizedBox(height: 20),
+
+          /// --- SLIDER + TIME ---
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Column(
+              children: [
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: Colors.deepPurpleAccent,
+                    inactiveTrackColor: Colors.white24,
+                    thumbColor: Colors.white,
+                    thumbShape: const RoundSliderThumbShape(
+                      enabledThumbRadius: 7,
                     ),
+                    overlayShape: SliderComponentShape.noOverlay,
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    widget.artist,
-                    style: TextStyle(color: Colors.white70, fontSize: 18),
-                  ),
-                  Slider(
+                  child: Slider(
                     value: _currentSliderValue,
                     min: 0,
                     max: _songDuration,
@@ -78,32 +118,56 @@ class _FullplayerState extends State<Fullplayer> {
                       });
                     },
                   ),
-                  SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.skip_previous, color: Colors.white),
-                        iconSize: 40,
-                        onPressed: () {},
-                      ),
-                      SizedBox(width: 30),
-                      IconButton(
-                        icon: Icon(Icons.play_arrow, color: Colors.white),
-                        iconSize: 60,
-                        onPressed: () {},
-                      ),
-                      SizedBox(width: 30),
-                      IconButton(
-                        icon: Icon(Icons.skip_next, color: Colors.white),
-                        iconSize: 40,
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+
+                /// --- TIME ROW ---
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      formatSeconds(_currentSliderValue),
+                      style: const TextStyle(color: Colors.white70),
+                    ),
+                    Text(
+                      widget.duration,
+                      style: const TextStyle(color: Colors.white70),
+                    ),
+                  ],
+                ),
+              ],
             ),
+          ),
+
+          const SizedBox(height: 35),
+
+          /// --- CONTROLS ---
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.skip_previous, color: Colors.white),
+                iconSize: 42,
+                onPressed: () {},
+              ),
+              const SizedBox(width: 25),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white10,
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.play_arrow, color: Colors.white),
+                  iconSize: 55,
+                  onPressed: () {},
+                ),
+              ),
+              const SizedBox(width: 25),
+              IconButton(
+                icon: const Icon(Icons.skip_next, color: Colors.white),
+                iconSize: 42,
+                onPressed: () {},
+              ),
+            ],
           ),
         ],
       ),

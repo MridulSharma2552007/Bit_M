@@ -116,7 +116,7 @@ class _SearchState extends State<Search> {
                                   style: const TextStyle(color: Colors.white),
                                 ),
                                 subtitle: Text(
-                                  video['channelTitle'],
+                                  "${video['channelTitle']} • ${video['duration']}",
                                   style: const TextStyle(color: Colors.white70),
                                 ),
                               ),

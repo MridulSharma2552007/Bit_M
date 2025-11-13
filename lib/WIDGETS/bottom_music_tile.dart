@@ -8,6 +8,7 @@ class BottomMusicTile extends StatelessWidget {
   final String? thumbnail;
   final String? videoId;
   final VoidCallback? onPlay;
+  final String? duration;
   const BottomMusicTile({
     super.key,
     this.title,
@@ -15,6 +16,7 @@ class BottomMusicTile extends StatelessWidget {
     this.thumbnail,
     this.videoId,
     this.onPlay,
+    this.duration,
   });
 
   @override
@@ -59,6 +61,7 @@ class BottomMusicTile extends StatelessWidget {
                       title: '$title',
                       artist: '$channel',
                       thumbnailUrl: '$thumbnail',
+                      duration: '$duration',
                     ),
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,
