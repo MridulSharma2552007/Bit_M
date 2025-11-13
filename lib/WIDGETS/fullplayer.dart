@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Fullplayer extends StatefulWidget {
-  const Fullplayer({super.key});
+  final String title;
+  final String artist;
+  final String thumbnailUrl;
+  const Fullplayer({
+    super.key,
+    required this.title,
+    required this.artist,
+    required this.thumbnailUrl,
+  });
 
   @override
   State<Fullplayer> createState() => _FullplayerState();
@@ -25,7 +33,12 @@ class _FullplayerState extends State<Fullplayer> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
-              child: Image.asset('lib/assets/Images/cover.png'),
+              child: Image.network(
+                widget.thumbnailUrl,
+                height: 300,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           SizedBox(height: 100),
@@ -39,17 +52,20 @@ class _FullplayerState extends State<Fullplayer> {
               child: Column(
                 children: [
                   SizedBox(height: 20),
-                  Text(
-                    'Song Title',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      widget.title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Artist Name',
+                    widget.artist,
                     style: TextStyle(color: Colors.white70, fontSize: 18),
                   ),
                   Slider(

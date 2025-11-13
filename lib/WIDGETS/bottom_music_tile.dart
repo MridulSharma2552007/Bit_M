@@ -55,7 +55,11 @@ class BottomMusicTile extends StatelessWidget {
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) => const Fullplayer(),
+                    builder: (context) => Fullplayer(
+                      title: '$title',
+                      artist: '$channel',
+                      thumbnailUrl: '$thumbnail',
+                    ),
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,
                   );
@@ -72,7 +76,6 @@ class BottomMusicTile extends StatelessWidget {
               ),
             ),
             IconButton(
-              
               icon: const Icon(Icons.play_arrow, color: Colors.white),
               onPressed: onPlay,
             ),

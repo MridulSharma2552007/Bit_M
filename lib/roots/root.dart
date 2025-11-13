@@ -34,7 +34,7 @@ class _RootState extends State<Root> {
     super.initState();
     pages = [
       const Home(),
-      Search(onSongSelected: _onSongSelected), // 👈 pass callback here
+      Search(onSongSelected: _onSongSelected),
       const Playlist(),
       const Settings(),
     ];
