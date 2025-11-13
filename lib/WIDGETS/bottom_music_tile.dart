@@ -1,5 +1,6 @@
 import 'package:bit_m/WIDGETS/fullplayer.dart';
 import 'package:bit_m/colors/app_colors.dart';
+import 'package:bit_m/services/player_services.dart';
 import 'package:flutter/material.dart';
 
 class BottomMusicTile extends StatelessWidget {
@@ -9,7 +10,7 @@ class BottomMusicTile extends StatelessWidget {
   final String? videoId;
   final VoidCallback? onPlay;
   final String? duration;
-  const BottomMusicTile({
+  BottomMusicTile({
     super.key,
     this.title,
     this.channel,
@@ -18,6 +19,7 @@ class BottomMusicTile extends StatelessWidget {
     this.onPlay,
     this.duration,
   });
+  final PlayerService player = PlayerService();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,7 @@ class BottomMusicTile extends StatelessWidget {
                       artist: '$channel',
                       thumbnailUrl: '$thumbnail',
                       duration: '$duration',
+                      player: player,
                     ),
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,

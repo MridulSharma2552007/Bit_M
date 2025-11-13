@@ -68,7 +68,12 @@ class _SearchState extends State<Search> {
                     hintStyle: const TextStyle(color: Colors.white70),
                   ),
                   style: const TextStyle(color: Colors.white),
-                  onSubmitted: (_) => _performingSearch(),
+                  onSubmitted: (_) {
+                    _performingSearch();
+                    setState(() {
+                      _selectedIndex = null; // Reset selection on new search
+                    });
+                  },
                 ),
               ),
 

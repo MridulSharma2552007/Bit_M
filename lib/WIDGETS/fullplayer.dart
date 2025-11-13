@@ -1,3 +1,4 @@
+import 'package:bit_m/services/player_services.dart';
 import 'package:flutter/material.dart';
 
 class Fullplayer extends StatefulWidget {
@@ -5,6 +6,7 @@ class Fullplayer extends StatefulWidget {
   final String artist;
   final String thumbnailUrl;
   final String duration;
+  final PlayerService player; // 👈 add this
 
   const Fullplayer({
     super.key,
@@ -12,6 +14,7 @@ class Fullplayer extends StatefulWidget {
     required this.artist,
     required this.thumbnailUrl,
     required this.duration,
+    required this.player,
   });
 
   @override
@@ -20,24 +23,28 @@ class Fullplayer extends StatefulWidget {
 
 class _FullplayerState extends State<Fullplayer> {
   double _currentSliderValue = 0;
-  late double _songDuration;
+  double _maxSliderValue = 1;
 
   @override
   void initState() {
     super.initState();
-    _songDuration = durationToSeconds(widget.duration).toDouble();
+
+    /// listen to duration update
+    widget.player.durationStream.listen((d) {
+      if (d != null) {
+        setState(() => _maxSliderValue = d.inSeconds.toDouble());
+      }
+    });
+
+    /// listen to current position
+    widget.player.positionStream.listen((p) {
+      setState(() => _currentSliderValue = p.inSeconds.toDouble());
+    });
   }
 
-  int durationToSeconds(String duration) {
-    final parts = duration.split(":");
-    final minutes = int.parse(parts[0]);
-    final seconds = int.parse(parts[1]);
-    return minutes * 60 + seconds;
-  }
-
-  String formatSeconds(double sec) {
+  String formatTime(int sec) {
     final minutes = (sec ~/ 60).toString().padLeft(2, '0');
-    final seconds = (sec % 60).toInt().toString().padLeft(2, '0');
+    final seconds = (sec % 60).toString().padLeft(2, '0');
     return "$minutes:$seconds";
   }
 
@@ -53,7 +60,7 @@ class _FullplayerState extends State<Fullplayer> {
         children: [
           const SizedBox(height: 25),
 
-          /// --- ARTWORK ---
+          /// ARTWORK
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
             child: ClipRRect(
@@ -69,63 +76,49 @@ class _FullplayerState extends State<Fullplayer> {
 
           const SizedBox(height: 40),
 
-          /// --- SONG TITLE ---
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Text(
-              widget.title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
+          Text(
+            widget.title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
             ),
           ),
 
           const SizedBox(height: 8),
 
-          /// --- ARTIST ---
           Text(
             widget.artist,
             style: const TextStyle(color: Colors.white70, fontSize: 17),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 25),
 
-          /// --- SLIDER + TIME ---
+          /// --- SLIDER ---
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
-                SliderTheme(
-                  data: SliderTheme.of(context).copyWith(
-                    activeTrackColor: Colors.deepPurpleAccent,
-                    inactiveTrackColor: Colors.white24,
-                    thumbColor: Colors.white,
-                    thumbShape: const RoundSliderThumbShape(
-                      enabledThumbRadius: 7,
-                    ),
-                    overlayShape: SliderComponentShape.noOverlay,
-                  ),
-                  child: Slider(
-                    value: _currentSliderValue,
-                    min: 0,
-                    max: _songDuration,
-                    onChanged: (value) {
-                      setState(() {
-                        _currentSliderValue = value;
-                      });
-                    },
-                  ),
+                Slider(
+                  value: _currentSliderValue,
+                  min: 0,
+                  max: _maxSliderValue,
+                  onChanged: (value) {
+                    setState(() => _currentSliderValue = value);
+                  },
+                  onChangeEnd: (value) {
+                    widget.player.seek(
+                      Duration(seconds: value.toInt()),
+                    ); // 👈 ACTUAL SEEK
+                  },
                 ),
 
-                /// --- TIME ROW ---
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      formatSeconds(_currentSliderValue),
+                      formatTime(_currentSliderValue.toInt()),
                       style: const TextStyle(color: Colors.white70),
                     ),
                     Text(
@@ -140,7 +133,7 @@ class _FullplayerState extends State<Fullplayer> {
 
           const SizedBox(height: 35),
 
-          /// --- CONTROLS ---
+          /// CONTROLS
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -150,16 +143,13 @@ class _FullplayerState extends State<Fullplayer> {
                 onPressed: () {},
               ),
               const SizedBox(width: 25),
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white10,
+              IconButton(
+                icon: const Icon(
+                  Icons.pause_circle_filled,
+                  color: Colors.white,
                 ),
-                child: IconButton(
-                  icon: const Icon(Icons.play_arrow, color: Colors.white),
-                  iconSize: 55,
-                  onPressed: () {},
-                ),
+                iconSize: 55,
+                onPressed: () => widget.player.pause(),
               ),
               const SizedBox(width: 25),
               IconButton(
