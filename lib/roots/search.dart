@@ -51,7 +51,6 @@ class _SearchState extends State<Search> {
         child: SafeArea(
           child: Column(
             children: [
-              // 🔍 Search box
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
@@ -71,7 +70,7 @@ class _SearchState extends State<Search> {
                   onSubmitted: (_) {
                     _performingSearch();
                     setState(() {
-                      _selectedIndex = null; // Reset selection on new search
+                      _selectedIndex = null;
                     });
                   },
                 ),
@@ -91,8 +90,7 @@ class _SearchState extends State<Search> {
                             onTap: () {
                               widget.onSongSelected(video);
                               setState(() {
-                                _selectedIndex =
-                                    index; // 👈 highlight tapped song
+                                _selectedIndex = index;
                               });
                             },
                             child: Container(
@@ -107,6 +105,15 @@ class _SearchState extends State<Search> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: ListTile(
+                                onLongPress: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      backgroundColor: Colors.green,
+                                      content: Text('Saved to Favorites'),
+                                    ),
+                                  );
+                                },
+
                                 leading: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.network(
