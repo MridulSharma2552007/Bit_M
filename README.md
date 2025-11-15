@@ -30,4 +30,4 @@ Everyone’s welcome to contribute, share ideas, and build together.
 ---
 
 > Made with ❤️ by **Mridul Sharma**  
-> “Keep it simple, make it beautiful.” 🌙
+> “Keep it simple, make it beautiful.”🌙
